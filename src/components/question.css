@@ -1,0 +1,42 @@
+.questionCard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border: 2px solid #e7b10a;
+  padding: 5rem;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.questionForm {
+  padding: 0.8rem;
+  border: 2px solid #e7b10a;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.question {
+  font-size: 2rem;
+  margin-bottom: 4rem;
+}
+
+.nextBtn {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  padding: 0.5rem 1.5rem;
+  background-color: #f7f1e5;
+  color: #e7b10a;
+  margin-top: 2rem;
+}
+
+.options {
+  font-family: 'VT323', monospace;
+  font-size: 1rem;
+  background-color: #f7f1e5;
+  padding: 0.5rem 1.5rem;
+  margin: 0 0.6rem;
+}
+
+.selected {
+  background-color: #e7b10a;
+  color: #f7f1e5;
+}

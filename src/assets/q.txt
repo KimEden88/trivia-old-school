@@ -1,0 +1,95 @@
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+
+export default function Temp({ questions }) {
+  const [currentQuestionIndex, setcurrentQuestionIndex] = useState(0);
+  const [storedData, setStoredData] = useState([]);
+  const [currentAnswer, setCurrentAnswer] = useState({});
+  const [showNextButton, setShowNextButton] = useState(false);
+
+  const unswers =
+    questions && currentQuestionIndex < questions.length
+      ? [
+          questions[currentQuestionIndex].correct_answer,
+          ...questions[currentQuestionIndex].incorrect_answers,
+        ]
+      : [];
+
+  const checkIfAnswerIsCorrect = (questionIndex, answer) => {
+    const question = questions[questionIndex];
+    return question.correct_answer === answer; // boolean
+  };
+
+  const handleAnswerClick = (answerOfTheButtonWeClickedNow, answerIndex) => {
+    setCurrentAnswer({ answer: answerOfTheButtonWeClickedNow, answerIndex });
+
+    setShowNextButton(true);
+  };
+
+  const handleNextClick = () => {
+    setStoredData(() => [
+      ...storedData,
+      {
+        questionIndex: currentQuestionIndex,
+        answer: currentAnswer.answer,
+        allAnswers: [
+          questions[currentQuestionIndex].correct_answer,
+          ...questions[currentQuestionIndex].incorrect_answers,
+        ],
+        isCorrect: checkIfAnswerIsCorrect(
+          currentQuestionIndex,
+          answerOfTheButtonWeClickedNow
+        ),
+      },
+    ]);
+    setcurrentQuestionIndex(currentQuestionIndex + 1);
+    setShowNextButton(false);
+  };
+return (
+    <>
+      {questions && currentQuestionIndex < questions.length ? (
+        <div key={uuidv4()}>
+          <h2>Question: {questions[currentQuestionIndex].question}</h2>
+          {unswers.map((answer, index) => (
+            <button
+              onClick={() => handleAnswerClick(answer, index)}
+              type="button"
+              key={uuidv4()}
+              disabled={showNextButton}
+              style={{color: currentAnswer.answerIndex === index ? "orange" : "black"}}
+            >
+              {answer}
+            </button>
+          ))}
+          {showNextButton && (
+            <button onClick={() => handleNextClick(answer)} type="button">
+              Next question!
+            </button>
+          )}
+        </div>
+      ) : (
+        <div>
+          <h1>Results:</h1>
+          <h2>Score:</h2>
+          <p>{${storedData.filter((item) => item.isCorrect).length}/${
+            questions.length
+          }}</p>
+          <h2>Questions:</h2>
+          {storedData.map((item) => (
+            <div key={item.answer}>
+              <h2>Question: {questions[item.questionIndex].question}</h2>
+              {item.allAnswers.map((answer) => (
+                <span
+                  key={answer}
+                  style={item.answer === answer ? { color: item.isCorrect ? "green" : "red" } : {}}
+                >
+                  {answer}
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}

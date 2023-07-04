@@ -1,0 +1,20 @@
+.correctAnswer,
+.good {
+  color: green;
+}
+.incorrectAnswer,
+.bad {
+  color: red;
+}
+
+.line {
+  border-bottom: 1px solid #e7b10a;
+}
+
+.result {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}

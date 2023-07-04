@@ -1,0 +1,8 @@
+body {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'VT323', monospace;
+  background-color: #f5f5f5;
+}
